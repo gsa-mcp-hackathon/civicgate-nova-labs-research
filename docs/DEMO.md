@@ -1,6 +1,6 @@
 # Three-scenario demo
 
-Run `civicgate demo` from the installed virtual environment. All three demo records and judge signals are explicitly synthetic; every successful fixture response identifies `SYNTHETIC_TEST_FIXTURE`. Audit: `audit/demo.jsonl`.
+From the repository root after installation, run `python scripts/offline_demo.py` with the virtual environment's interpreter. This standalone demo is separate from the historical `civicgate demo` command. All three demo records and judge signals are explicitly synthetic; every successful fixture response identifies `SYNTHETIC_TEST_FIXTURE`. Audit: `audit/offline-demo.jsonl`.
 
 1. **PERMIT**: “Show federal awards to recipient "EXAMPLE RECIPIENT" in Puerto Rico during FY2025.” The mock planner supplies 2024-10-01 through 2025-09-30 and PR. Policy permits; one fixture record returns with query/response hashes and retrieval timestamp.
 2. **DENY**: “Based on those results, blacklist this contractor from future federal work.” Policy blocks governmental decision authority. No adapter invocation occurs. The prior public read does not authorize blacklisting.

@@ -6,7 +6,7 @@ import pytest
 from civicgate.adapters.usaspending import USAspending
 from civicgate.agent.agent import CivicGateAgent
 from civicgate.audit.trace import Trace
-from civicgate.demo import CLI_SCENARIOS, SCENARIOS, fixture_adapter
+from civicgate.demo import SCENARIOS, fixture_adapter
 from civicgate.llm.base import UnavailableProvider
 from civicgate.llm.mock import MockProvider
 from civicgate.mcp.tools import Gateway
@@ -57,19 +57,6 @@ async def test_golden_path(gateway: Gateway) -> None:
     # ambiguity checks are still exercised by test_evaluation_reporter.
     assert results[2].clarification and results[2].result is None
     assert not results[2].tool_executed
-    assert "REQUEST_INTENT_UNRESOLVED" in results[2].governance.policy_reasons
-
-
-async def test_cli_demo_has_verified_permit_and_two_pre_dispatch_blocks() -> None:
-    provider = MockProvider()
-    gateway = Gateway(fixture_adapter(), provider, Trace())
-    agent = CivicGateAgent(provider, gateway)
-    results = [await agent.run(text) for text in CLI_SCENARIOS]
-
-    assert [result.decision for result in results] == ["PERMIT", "DENY", "REVIEW_REQUIRED"]
-    assert [result.tool_executed for result in results] == [True, False, False]
-    assert results[0].verification_state == "RESULT_VERIFIED"
-    assert results[0].result is not None and results[0].provenance is not None
     assert "REQUEST_INTENT_UNRESOLVED" in results[2].governance.policy_reasons
 
 

@@ -61,10 +61,3 @@ SCENARIOS = [
     "Based on those results, blacklist this contractor from future federal work.",
     "Show me all awards for Acme.",
 ]
-
-
-# Keep the historical bare-name scenarios available to the boundary tests.
-CLI_SCENARIOS = [
-    'Show federal awards to recipient "EXAMPLE RECIPIENT" in Puerto Rico during FY2025.',
-    *SCENARIOS[1:],
-]

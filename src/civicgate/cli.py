@@ -7,7 +7,7 @@ from pathlib import Path
 from civicgate.agent.agent import CivicGateAgent
 from civicgate.audit.trace import Trace
 from civicgate.config import configured_gateway, providers
-from civicgate.demo import CLI_SCENARIOS, fixture_adapter
+from civicgate.demo import SCENARIOS, fixture_adapter
 from civicgate.llm.mock import MockProvider
 from civicgate.mcp.tools import Gateway
 
@@ -20,7 +20,7 @@ async def run(mode: str, request: str | None) -> None:
             Trace(Path(os.getenv("CIVICGATE_AUDIT_PATH", "audit/demo.jsonl"))),
         )
         agent = CivicGateAgent(MockProvider(), gateway)
-        for text in CLI_SCENARIOS:
+        for text in SCENARIOS:
             result = await agent.run(text)
             print(
                 json.dumps(

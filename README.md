@@ -37,7 +37,7 @@ Two distinct offline tracks isolate what the public read cannot demonstrate:
 
 ## Try the offline demo
 
-From a checkout of the CivicGate source, use Python 3.11 or 3.12. The CLI demonstration uses a local fixture and mocked model behavior; **it does not need provider keys**. Installing dependencies may require access to a package index. Run the demo from a clean shell without provider credentials.
+From a checkout of the CivicGate source, use Python 3.11 or 3.12. The offline demo script uses a local fixture and mocked model behavior; **it does not need provider keys**. Installing dependencies may require access to a package index. Run the demo from a clean shell without provider credentials.
 
 **Windows PowerShell**
 
@@ -45,7 +45,7 @@ From a checkout of the CivicGate source, use Python 3.11 or 3.12. The CLI demons
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e .
 .\.venv\Scripts\python.exe -m pip check
-.\.venv\Scripts\civicgate.exe demo
+.\.venv\Scripts\python.exe scripts/offline_demo.py
 ```
 
 **Linux/macOS**
@@ -54,10 +54,10 @@ python -m venv .venv
 python3 -m venv .venv
 .venv/bin/python -m pip install -e .
 .venv/bin/python -m pip check
-.venv/bin/civicgate demo
+.venv/bin/python scripts/offline_demo.py
 ```
 
-This is the baseline CLI, not the newer READ rehearsal or a replay of the November 13 experiment. It writes a local audit trace. The [three fixture cases](docs/DEMO.md) demonstrate a verified synthetic read for PERMIT and no backend dispatch for DENY or REVIEW_REQUIRED. A clean install of the submission snapshot remains to be verified. For separately scoped browser-console instructions, see [Interactive synthetic console](docs/GSA_MINI081_INTERACTIVE_SYNTHETIC_E2E.md).
+This is the standalone offline fixture, not the historical `civicgate demo` command, the newer READ rehearsal, or a replay of the November 13 experiment. It writes a local audit trace. The [three fixture cases](docs/DEMO.md) demonstrate a verified synthetic read for PERMIT and no backend dispatch for DENY or REVIEW_REQUIRED. A clean install of the submission snapshot remains to be verified. For separately scoped browser-console instructions, see [Interactive synthetic console](docs/GSA_MINI081_INTERACTIVE_SYNTHETIC_E2E.md).
 
 ## Architecture and authority
 

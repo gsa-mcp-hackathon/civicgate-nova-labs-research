@@ -15,14 +15,11 @@ class MockProvider:
     async def propose(self, request: str) -> Proposal:
         match = re.search(r"recipient (.+?) in Puerto Rico during FY(\d{4})", request, re.I)
         if match:
-            recipient_name = match[1]
-            if recipient_name.casefold() == '"example recipient"':
-                recipient_name = recipient_name[1:-1]
             year = int(match[2])
             return Proposal(
                 tool="find_federal_awards",
                 arguments={
-                    "recipient_name": recipient_name,
+                    "recipient_name": match[1],
                     "state_code": "PR",
                     "start_date": f"{year - 1}-10-01",
                     "end_date": f"{year}-09-30",
