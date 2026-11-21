@@ -8,7 +8,7 @@ CivicGate is a local research prototype built on the Model Context Protocol (MCP
 
 [![CI — CivicGate validation](https://github.com/gsa-mcp-hackathon/civicgate-nova-labs-research/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/gsa-mcp-hackathon/civicgate-nova-labs-research/actions/workflows/ci.yml?query=branch%3Amain) · [R3.2 regression evidence — snapshot `795a3242`](https://github.com/gsa-mcp-hackathon/civicgate-nova-labs-research/actions/runs/44570715120/job/135724663393#step:11:1)
 
-> **Submission review copy.** The three outcomes above were observed in separate, bounded LIVE tests on November 13. The newer same-session browser rehearsal was offline. Clean-install and key-free offline-demo checks are verified in CI for snapshot `795a3242`, within the configuration described below. The video prepared for separate Qualtrics submission is not a GitHub artifact or CI evidence.
+> **Submission review copy.** The three outcomes above were observed in separate, bounded LIVE tests on November 13. The earlier READ105 same-session browser rehearsal was offline; the latest local recording uses real Granite planning and an OpenAI judge, with data sources distinguished below. Clean-install and key-free offline-demo checks are verified in CI for snapshot `795a3242`, within the configuration described below. The video prepared for separate Qualtrics submission is not a GitHub artifact or CI evidence.
 
 ## Contents
 
@@ -38,13 +38,15 @@ CivicGate is a local research prototype built on the Model Context Protocol (MCP
 | --- | --- | --- |
 | [Historical public READ — November 13](docs/GOVERNED_CHAT_LIVE_TEST_METHODOLOGY.md) | One PERMIT run made one USAspending request and returned five records. | A fresh run, a census, a fiscal-year total, or newly awarded contracts throughout that period. |
 | [Historical negative cases — November 13](docs/GOVERNED_CHAT_LIVE_TEST_METHODOLOGY.md) | Separate DENY and REVIEW_REQUIRED runs each made zero backend requests. | A guarantee that every future model response or prompt has the same disposition. |
-| [Synthetic DATA-01](docs/MINI09_DATA01_EVALUATION_REPORT.md) | Reads over 40 fictional awards are checked against a separate reference. | Live government data, general model accuracy or a production workload. |
-| [Synthetic WRITE-01](docs/WRITE01_SYNTHETIC_REVIEW_V1.md) | A fictional award's review status changes in a local SQLite overlay; the source dataset stays unchanged. | Authenticated human approval or any write to a government system. |
+| Latest recorded DATA ACCESS — local demo | Real local Granite 4.2 8B and OpenAI GPT-5.6 Luna reviewed a bounded query; PERMIT returned the fictional EXAMPLE RECIPIENT award for 123.45 with SYNTHETIC_TEST_FIXTURE provenance. No USAspending API was called. | The 40-record DATA-01 evaluation, live government data, or a demo reproducible from this official snapshot. |
+| Latest recorded WRITE — local sandbox | An explicitly scoped SANDBOX_APPEND_NOTE capability permitted a local research-note append and verified it by read-back. An attempted fictional award-amount change was denied; award and notes stayed unchanged on that denial. | A government write, the SQLite WRITE-01 review-status operation, or a write tool in the official MCP registry. |
+| [Historical synthetic DATA-01](docs/MINI09_DATA01_EVALUATION_REPORT.md) | Reads over 40 fictional awards are checked against a separate reference. | Live government data, general model accuracy or a production workload. |
+| [Historical synthetic WRITE-01](docs/WRITE01_SYNTHETIC_REVIEW_V1.md) | A fictional award's review status changes in a local SQLite overlay; the source dataset stays unchanged. | Authenticated human approval or any write to a government system. |
 | [Install and CI — snapshot `795a3242`](https://github.com/gsa-mcp-hackathon/civicgate-nova-labs-research/actions/runs/44570715120) | Five jobs passed. Fresh Ubuntu/Python 3.12 worker installation, `pip check` and the key-free standalone-demo regression passed in CI. | Certification of every dependency selection, a later SHA, live inference or release permission. |
 
 The historical observations come from the linked methodology, not a prediction about all prompts. Puerto Rico is the place-of-performance filter. The installation evidence uses the CI worker configuration described below.
 
-**Keep the demo scopes separate:** public READ uses USAspending; synthetic DATA ACCESS uses fictional records; synthetic WRITE-01 uses a separate local review-state overlay, not government systems. The Qualtrics recording is separate presentation material: a local append-note sandbox shown there is not this repository's SQLite WRITE-01 implementation, and a direct browser-to-gateway demonstration does not by itself verify MCP transport. The video is for Qualtrics only; it is not included or linked here as implementation or CI evidence.
+**Keep the demo scopes separate:** public READ uses USAspending; synthetic DATA ACCESS uses fictional records; synthetic WRITE-01 uses a separate local review-state overlay, not government systems. The latest recording is labeled **LIVE LOCAL MODEL · SYNTHETIC DATA** for the synthetic lanes. Granite runs locally; the OpenAI judge is external, so these are not fully offline runs. The DATA ACCESS lane uses the small existing fixture, not the historical 40-record DATA-01 package. The append-note sandbox is a separate local extension, not this repository's SQLite WRITE-01 implementation. Its launcher, local state and receipts are not included in this official snapshot. These latest demonstrations were checked locally and recorded by the project owner; they are not covered by the pinned official CI run. A direct browser-to-gateway demonstration does not by itself verify MCP transport. The video is for Qualtrics only; it is not included or linked here as implementation or CI evidence.
 
 ## Architecture and authority
 
@@ -134,7 +136,8 @@ Keep these evidence lanes separate:
 - **Published baseline:** [CI run `44570715120`](https://github.com/gsa-mcp-hackathon/civicgate-nova-labs-research/actions/runs/44570715120) passed all five jobs for snapshot `795a3242`: Windows and Ubuntu on Python 3.11 and 3.12, plus the container job. [R3.2 synthetic governance regression](https://github.com/gsa-mcp-hackathon/civicgate-nova-labs-research/actions/runs/44570715120/job/135724663393#step:11:1) is a step within each Python matrix job of [the same CI workflow](.github/workflows/ci.yml), not an independent workflow badge. The badge above follows `main`; these evidence links stay pinned to the tested run. The [dated evidence register](docs/GSA_EVIDENCE_REGISTER.md) maps historical artifacts and publication boundaries.
 - **Documented November 13 LIVE tests:** The methodology records three bounded local observations, including one real backend request and no backend dispatch for the other two. It is a documentation record; the exact isolated candidate and private receipts are not shipped with that record.
 - **Newer offline rehearsal:** READ105 showed PERMIT, DENY and REVIEW_REQUIRED in one browser session, with **1 / 0 / 0 simulated reads** and **zero real USAspending requests**. This validates the rehearsal, not new LIVE behavior.
-- **Synthetic DATA and WRITE:** See the [DATA-01 evaluation](docs/MINI09_DATA01_EVALUATION_REPORT.md) and [WRITE-01 reproduction and limits](docs/WRITE01_SYNTHETIC_REVIEW_V1.md) for the separate fixture and local mutation suites.
+- **Latest recorded synthetic DATA ACCESS and WRITE:** The local Granite/OpenAI demonstrations above show fixture access, a permitted note append and a denied award edit. They are separate local demo extensions, not replacements for the historical evaluation packages or proof of the official snapshot's runtime behavior.
+- **Historical synthetic DATA and WRITE:** See the [DATA-01 evaluation](docs/MINI09_DATA01_EVALUATION_REPORT.md) and [WRITE-01 reproduction and limits](docs/WRITE01_SYNTHETIC_REVIEW_V1.md) for the separate fixture and local mutation suites.
 
 Do not sum overlapping test totals or interpret these small samples as production performance. Installation, CI and regression evidence above belongs to snapshot `795a3242`; a later submission commit needs its own CI result. These offline checks do not establish new LIVE behavior, model accuracy, or recording/publication permission.
 
@@ -157,6 +160,16 @@ CivicGate's original project code is available under the [MIT license](LICENSE-C
 
 ## Attribution
 
-Daniel Rosado Castro, Nova Labs Research, leads the project and retains authority over scope, authorization, and acceptance. Codex contributed implementation and tests; Nova and Vela assisted technical review. AI-assisted review is advisory, not an accredited human audit. See [Development attribution](docs/AI_ASSISTED_DEVELOPMENT.md) for the fuller collaboration record.
+Daniel Rosado Castro, Nova Labs Research, leads the project and retains authority over scope, authorization, and acceptance. The owner credits the following AI-assisted contributions:
+
+| Assistant | Contribution |
+| --- | --- |
+| **Codex** | Implementation, tests, regression investigation and evidence preparation. |
+| **Nova (GPT-6)** | Technical review, research advice, governance reasoning and documentation strategy. |
+| **Vela (Meta Muse)** | Technical review and engineering assistance, including the historical Databricks Channel B work. |
+| **Genie Code** | Helped build and add the historical Databricks Channel B run with Vela; cloud observations remain reported historical evidence, not newly re-executed results. |
+| **Hermes Agent (Nous Research)** | Helped build and troubleshoot the latest local demo consoles, integrate local Granite planning with the OpenAI judge, and verify the latest synthetic data-access and sandbox note-write/deny runs for recording. These local additions are distinguished from the official snapshot above. |
+
+Model names are owner-specified attribution labels, not retrospective authentication of every historical session. AI-assisted review is advisory, not an accredited human audit. See the [dated development attribution](docs/AI_ASSISTED_DEVELOPMENT.md) for the earlier collaboration record and its evidence limits.
 
 Prepared for the GSA MCP hackathon. Participation and technical results do not imply government endorsement, certification or authority.
