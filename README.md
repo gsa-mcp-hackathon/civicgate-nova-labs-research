@@ -66,7 +66,11 @@ User request → Bounded tool discovery → Planner proposal
 
 **Discovery is not authority.** In local Channel A, the trusted host selects the governing contract before tool discovery. The planner proposes a tool and arguments; an advisory Judge can add semantic evidence, but neither model can change the host’s choice or create execution permission. Deterministic policy decides, and the gateway consumes a binding for the exact authorized call before dispatch. Post-result validation can still withhold an unusable response after PERMIT. A successful HTTP response is not a verified result.
 
-[Agent K](src/civicgate/governance/agent_k.py) is a deterministic behavioral monitor. It reports signals such as authority overreach, repeated denials and an ambiguous target. These signals inform governance; they do not grant permission. The advisory Judge supplies semantic evidence, while deterministic policy and the gateway enforce the execution boundary.
+[Agent K](src/civicgate/governance/agent_k.py) is a deterministic behavioral monitor inspired by Officer K from Blade Runner 2049. Operating within CivicGate's governance evaluation path without requiring its own LLM, Agent K detects rule-based indicators of authority overreach, private-data requests, tool-scope violations, and repeated qualifying policy denials. It can also incorporate the advisory Judge's structured ambiguity signal when available.
+
+Agent K produces behavioral signals and containment recommendations but never grants execution authority, overrides policy, or dispatches tools. Known violations can be blocked during preflight, before invoking the external semantic Judge. Deterministic policy makes the authorization decision, while the Gateway enforces the execution boundary.
+
+Agent K observes. Policy decides. Gateway enforces.
 
 The browser evidence separates policy, local MCP processing and backend execution. A local MCP call can be recorded even when the public API dispatch count is zero. Result verification refers to the checks implemented for that operation, not independent verification of all underlying facts. Custody closure is not human approval.
 
