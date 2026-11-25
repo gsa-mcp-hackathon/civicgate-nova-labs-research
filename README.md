@@ -15,6 +15,7 @@ CivicGate is a local research prototype built on the Model Context Protocol (MCP
 - [For judges](#for-judges)
 - [Results at a glance](#results-at-a-glance)
 - [Architecture and authority](#architecture-and-authority)
+- [Post-submission MCP annotation research](#post-submission-mcp-annotation-research--november-25-2026)
 - [MCP tools](#mcp-tools)
 - [Try the offline demo](#try-the-offline-demo)
 - [Evaluation and reproducibility](#evaluation-and-reproducibility)
@@ -75,6 +76,28 @@ Agent K observes. Policy decides. Gateway enforces.
 The browser evidence separates policy, local MCP processing and backend execution. A local MCP call can be recorded even when the public API dispatch count is zero. Result verification refers to the checks implemented for that operation, not independent verification of all underlying facts. Custody closure is not human approval.
 
 See [Architecture](docs/ARCHITECTURE.md), [Authority model](docs/AUTHORITY_MODEL.md), [Execution boundary](docs/CHANNEL_A1_EXECUTION_BOUNDARY.md) and [Security boundaries](docs/SECURITY.md).
+
+## Post-submission MCP annotation research — November 25, 2026
+
+**Responsible and trustworthy AI requires verifiable evidence, not just a favorable score.** An external [M8ven MCP Trust Index assessment](https://m8ven.ai/mcp/gsa-mcp-hackathon/civicgate-nova-labs-research) of the official CivicGate repository prompted a deeper internal review of tool annotations and test coverage. We treated the static scanner's alerts as questions to investigate—not as confirmed runtime failures or a security certification. M8ven's scoring logic and any subsequent rescan have not been independently reproduced here.
+
+**What our audits actually found:** MCP-ANNOTATIONS-01 verified that all four hints were present in **22 serialized SDK tool registrations across six profiles**. MCP-ANNOTATIONS-02 then identified **16 closed-profile `openWorldHint=true` overstatements** and **one non-additive synthetic WRITE-01 update advertised with `destructiveHint=false`**. MCP-ANNOTATIONS-03 introduced an **opt-in, trusted-host `MCP_TOOL_METADATA_V2`** discovery view that corrects these 17 hint fields for the relevant profiles. The original registrations, frozen WRITE-01 v1 experiment, execution bindings, deterministic policy, and Gateway enforcement remain unchanged. Metadata does not grant authority, and these findings do not establish a security bypass.
+
+**Audit trail and reproducible evidence:**
+
+| Evidence | What it establishes |
+| --- | --- |
+| [Public audit and correction report](docs/MCP-ANNOTATIONS-03_IMPLEMENTATION_REPORT.md) | Separates M8ven's external trigger, CivicGate's internal findings, versioned repair, limits, and CI diagnostics |
+| [22-registration before/after matrix](docs/MCP-ANNOTATIONS-03_METADATA_MATRIX.json) | Serialized hint values across all six supported profiles |
+| [Frozen WRITE-01 integrity summary](docs/MCP-ANNOTATIONS-03_FROZEN_WRITE01_INTEGRITY.json) · [original v1 manifest](evals/manifests/write01_candidate_v1.json) | Historical evidence and all 13 source pins preserved |
+| [Metadata v2 implementation](src/civicgate/mcp/metadata_v2.py) · [semantic and transport tests](tests/mcp/test_metadata_v2.py) | Opt-in discovery implementation and reproducible assertions |
+| [Windows/Python 3.11 diagnostic CI](https://github.com/drosadocastro-bit/CIVICGATE/actions/runs/45640646487) · [corrected 5/5 PASS PR CI](https://github.com/drosadocastro-bit/CIVICGATE/actions/runs/45657276877) | Preserved failure and independently verified publication repair |
+
+The publication CI exposed two additional compatibility problems: full `mypy src` traversal of frozen evaluation modules (addressed through fixed-name optional imports), and a Windows 3.11 STDIO fixture that installed synthetic network guards before the runtime's internal event-loop socketpair existed. The test-only fixture now installs the **unchanged guards immediately after loop creation and before MCP server construction**. The personal publication PR passed all five GitHub Actions jobs; separate CI acceptance is required for any organization-repository publication.
+
+Local review recorded **2,798 PASS / 1 SKIP** for the broader core selection, **30 PASS** focused, **487 PASS** in the reproduced historical selection, and **48 PASS** Host71 offline. Selections overlap and must **not** be added; these counts are distinct from the later five-job GitHub Actions result. The linked public record is privacy-redacted; raw local captures remain separately preserved.
+
+**Badge policy:** No M8ven badge is claimed yet. A future badge may be shown only with a corresponding current external assessment, clearly labeled as an external directory signal—not as a government endorsement, a production authorization, or proof of comprehensive AI safety. This work is a **post-submission research correction**, not a retroactive rewrite of the original hackathon evidence.
 
 ## MCP tools
 
