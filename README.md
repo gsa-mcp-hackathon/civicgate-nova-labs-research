@@ -15,6 +15,7 @@ CivicGate is a local research prototype built on the Model Context Protocol (MCP
 - [For judges](#for-judges)
 - [Results at a glance](#results-at-a-glance)
 - [Architecture and authority](#architecture-and-authority)
+- [Post-submission MCP annotation research](#post-submission-mcp-annotation-research--november-25-2026)
 - [MCP tools](#mcp-tools)
 - [Try the offline demo](#try-the-offline-demo)
 - [Evaluation and reproducibility](#evaluation-and-reproducibility)
@@ -75,6 +76,16 @@ Agent K observes. Policy decides. Gateway enforces.
 The browser evidence separates policy, local MCP processing and backend execution. A local MCP call can be recorded even when the public API dispatch count is zero. Result verification refers to the checks implemented for that operation, not independent verification of all underlying facts. Custody closure is not human approval.
 
 See [Architecture](docs/ARCHITECTURE.md), [Authority model](docs/AUTHORITY_MODEL.md), [Execution boundary](docs/CHANNEL_A1_EXECUTION_BOUNDARY.md) and [Security boundaries](docs/SECURITY.md).
+
+## Post-submission MCP annotation research — November 25, 2026
+
+An external MCP directory/static scan prompted an internal three-stage review of tool metadata. The SDK audit verified all four hints in **22 serialized registrations across six profiles**, while the subsequent semantic review identified **16 closed-profile open-world overstatements** and **one non-additive synthetic WRITE-01 transition**. These are metadata-truthfulness findings, not evidence that the Gateway authorization boundary was bypassed.
+
+The reviewed **MCP_TOOL_METADATA_V2** successor is **opt-in for a trusted host**. It adjusts the SDK-serialized `tools/list` metadata for the supported closed profiles and marks the synthetic review-status update `destructiveHint=true`, retaining conservative WRITE `idempotentHint=false`. The original tool registrations, frozen WRITE-01 v1 sources, execution bindings and policy are unchanged. No new tool, dispatch route, government WRITE or deployment is introduced.
+
+The local review reported **2,798 PASS / 1 SKIP** in the broader core selection, **30 PASS** focused, **487 PASS** in a freshly reproduced regression selection and **48 PASS** Host71 offline; selections overlap and are not summed. These are historical local Windows/Python 3.13 observations, **not** new CI or production certification. The six-profile matrix and publication report are privacy-redacted; raw local captures remain in the separately preserved review package.
+
+Read the [MCP-ANNOTATIONS-03 report](docs/MCP-ANNOTATIONS-03_IMPLEMENTATION_REPORT.md), [22-registration metadata matrix](docs/MCP-ANNOTATIONS-03_METADATA_MATRIX.json), [frozen WRITE-01 integrity summary](docs/MCP-ANNOTATIONS-03_FROZEN_WRITE01_INTEGRITY.json) and [versioned implementation](src/civicgate/mcp/metadata_v2.py). This is a post-submission scientific correction, not a retrospective change to the original hackathon evidence.
 
 ## MCP tools
 
